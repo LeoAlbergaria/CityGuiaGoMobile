@@ -36,13 +36,16 @@ fun NavigationGraph() {
 
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "home"
     ) {
         composable("login") {
             LoginView(navController)
         }
         composable("register") {
             RegisterView(navController)
+        }
+        composable("home") {
+            HomeView(navController)
         }
     }
 }

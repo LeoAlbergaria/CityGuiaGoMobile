@@ -12,6 +12,7 @@ object Metrics {
         val large = 24.dp
         val huge = 32.dp
         val giant = 48.dp
+        val massive = 120.dp
     }
 
     object RoundCorners {
