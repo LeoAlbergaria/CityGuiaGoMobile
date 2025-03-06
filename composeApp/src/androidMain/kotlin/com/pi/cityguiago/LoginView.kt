@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import com.pi.cityguiago.designsystem.*
-import com.pi.cityguiago.designsystem.components.TextFieldWithTitle
+import com.pi.cityguiago.designsystem.components.*
 
 @Composable
 fun LoginView(navController: NavHostController) {
@@ -59,23 +59,11 @@ fun LoginView(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(Metrics.Margins.huge))
 
-        Button(
+        PrimaryButton(
+            text = "Entrar",
             onClick = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(Metrics.RoundCorners.default)),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Blue)
-        ) {
-            Row(
-                modifier = Modifier.padding(Metrics.Margins.small),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Entrar", tint = White)
-                Spacer(modifier = Modifier.width(Metrics.Margins.small))
-                Text(text = "Entrar", color = White)
-            }
-        }
+            icon = Icons.Default.ArrowForward
+        )
 
         Spacer(modifier = Modifier.height(Metrics.Margins.small))
 

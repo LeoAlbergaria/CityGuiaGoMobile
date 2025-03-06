@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.navigation.NavHostController
 import com.pi.cityguiago.designsystem.*
+import com.pi.cityguiago.designsystem.components.PrimaryButton
 import com.pi.cityguiago.designsystem.components.TextFieldWithTitle
 
 @Composable
@@ -70,24 +73,10 @@ fun RegisterView(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(Metrics.Margins.huge))
 
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(Metrics.RoundCorners.default)),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Blue)
-        ) {
-            Row(
-                modifier = Modifier.padding(Metrics.Margins.small),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Cadastrar",
-                    color = White
-                )
-            }
-        }
+        PrimaryButton(
+            text = "Cadastrar",
+            onClick = {}
+        )
 
         Spacer(modifier = Modifier.height(Metrics.Margins.small))
 
