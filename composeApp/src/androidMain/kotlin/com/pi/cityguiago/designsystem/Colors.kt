@@ -1,7 +1,6 @@
 package com.pi.cityguiago.designsystem
 
 import androidx.compose.ui.graphics.Color
-import com.pi.cityguiago.designsystem.components.ColorMode
 
 val Blue = Color(0xFF007C9A)
 val LightBlue = Color(0xFFF6FDFF)

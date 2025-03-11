@@ -61,7 +61,7 @@ fun LoginView(navController: NavHostController) {
 
         PrimaryButton(
             text = "Entrar",
-            onClick = {},
+            onClick = { navController.navigate("home") },
             icon = Icons.Default.ArrowForward
         )
 
