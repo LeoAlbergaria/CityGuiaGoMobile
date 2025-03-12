@@ -15,6 +15,7 @@ import com.pi.cityguiago.designsystem.Background
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MaterialTheme {
                 Surface(
@@ -36,7 +37,7 @@ fun NavigationGraph() {
 
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "login"
     ) {
         composable("login") {
             LoginView(navController)
@@ -46,6 +47,9 @@ fun NavigationGraph() {
         }
         composable("home") {
             HomeView(navController)
+        }
+        composable("explore") {
+            ExploreView(navController)
         }
     }
 }

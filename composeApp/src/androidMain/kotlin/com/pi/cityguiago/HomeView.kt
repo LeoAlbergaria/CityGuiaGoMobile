@@ -1,8 +1,6 @@
 package com.pi.cityguiago
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -21,18 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.pi.cityguiago.designsystem.*
 import com.pi.cityguiago.designsystem.components.*
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomeView(navController: NavHostController) {
@@ -50,7 +40,7 @@ fun HomeView(navController: NavHostController) {
             horizontalAlignment = Alignment.Start
         ) {
             VerticalSpacers.Large()
-            SearchSection()
+            SearchSection(navController)
             VerticalSpacers.Large()
             BestAttractions()
             VerticalSpacers.Large()
@@ -79,7 +69,7 @@ fun Header() {
 }
 
 @Composable
-fun SearchSection() {
+fun SearchSection(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -88,7 +78,7 @@ fun SearchSection() {
         SearchBar(
             text = "",
             placeholder = "Explore a Grande Vitória",
-            onTextChanged = { },
+            onTextChanged = { navController.navigate("explore") },
             icon = Icons.Filled.Info
         )
 
@@ -170,15 +160,30 @@ fun BestAttractionCard(
         elevation = Metrics.Margins.nano
     ) {
         Box(
-            contentAlignment = Alignment.BottomCenter
+            contentAlignment = Alignment.BottomStart
         ) {
-            TextBody1(
-                text = title,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(Metrics.Margins.default),
-                textAlign = TextAlign.Start
-            )
+//            TextBody1(
+//                text = title,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(Metrics.Margins.default),
+//                textAlign = TextAlign.Start
+//            )
+
+            Column(modifier = Modifier.padding(Metrics.Margins.default))
+             {
+                 Row {
+                     Icon(
+                         imageVector = Icons.Filled.Star,
+                         contentDescription = "Rating Star",
+                         modifier = Modifier.size(Metrics.Margins.default)
+                     )
+                     HorizontalSpacers.Micro()
+                     TextH6("No 1", colorMode = ColorMode.Secondary)
+                 }
+                VerticalSpacers.Small()
+                TextH5(title, colorMode = ColorMode.Secondary)
+            }
         }
     }
 }

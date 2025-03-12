@@ -1,8 +1,8 @@
 package com.pi.cityguiago
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -11,15 +11,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.pi.cityguiago.module.Login.LoginEffect
+import com.pi.cityguiago.module.Login.LoginEvent
+import com.pi.cityguiago.module.Login.LoginViewModel
 import com.pi.cityguiago.designsystem.*
 import com.pi.cityguiago.designsystem.components.*
 
 @Composable
-fun LoginView(navController: NavHostController) {
+fun LoginView(
+    navController: NavHostController,
+    viewModel: LoginViewModel = viewModel { LoginViewModel() }
+) {
+    val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    LaunchedEffect(viewModel) {
+        viewModel.effects.collect {
+            when (it) {
+                is LoginEffect.LoginSuccess -> navController.navigate("home")
+                is LoginEffect.ShowErrorMessage -> {
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -61,7 +80,8 @@ fun LoginView(navController: NavHostController) {
 
         PrimaryButton(
             text = "Entrar",
-            onClick = { navController.navigate("home") },
+//            onClick = { navController.navigate("home") },
+            onClick = { viewModel.onEvent(LoginEvent.Login(email, password)) },
             icon = Icons.Default.ArrowForward
         )
 

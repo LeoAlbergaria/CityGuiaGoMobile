@@ -27,7 +27,21 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
+            implementation("io.ktor:ktor-client-android:2.3.8") // For Android
+            implementation("io.ktor:ktor-client-serialization:2.3.8") // JSON Serialization
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.8") // Content Negotiation
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8") // JSON Support
+            implementation("io.ktor:ktor-client-logging:2.3.8")
             // put your Multiplatform dependencies here
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }

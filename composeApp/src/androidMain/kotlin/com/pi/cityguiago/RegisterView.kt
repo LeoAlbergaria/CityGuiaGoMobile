@@ -1,28 +1,44 @@
 package com.pi.cityguiago
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.navigation.NavHostController
+import com.pi.cityguiago.module.Register.RegisterEffect
+import com.pi.cityguiago.module.Register.RegisterEvent
+import com.pi.cityguiago.module.Register.RegisterViewModel
 import com.pi.cityguiago.designsystem.*
 import com.pi.cityguiago.designsystem.components.PrimaryButton
 import com.pi.cityguiago.designsystem.components.TextFieldWithTitle
 
 @Composable
-fun RegisterView(navController: NavHostController) {
+fun RegisterView(
+    navController: NavHostController,
+    viewModel: RegisterViewModel = androidx.lifecycle.viewmodel.compose.viewModel { RegisterViewModel() }
+) {
+    val context = LocalContext.current
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+
+    LaunchedEffect(viewModel) {
+        viewModel.effects.collect {
+            when (it) {
+                is RegisterEffect.RegisterSuccess -> navController.navigate("home")
+                is RegisterEffect.ShowErrorMessage -> {
+                    Toast.makeText(context, it.errorMessage, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -75,7 +91,7 @@ fun RegisterView(navController: NavHostController) {
 
         PrimaryButton(
             text = "Cadastrar",
-            onClick = {}
+            onClick = { viewModel.onEvent(RegisterEvent.Register(fullName, email, password, confirmPassword) )}
         )
 
         Spacer(modifier = Modifier.height(Metrics.Margins.small))
