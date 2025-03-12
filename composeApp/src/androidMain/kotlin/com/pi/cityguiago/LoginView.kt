@@ -19,11 +19,12 @@ import com.pi.cityguiago.module.Login.LoginEvent
 import com.pi.cityguiago.module.Login.LoginViewModel
 import com.pi.cityguiago.designsystem.*
 import com.pi.cityguiago.designsystem.components.*
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginView(
     navController: NavHostController,
-    viewModel: LoginViewModel = viewModel { LoginViewModel() }
+    viewModel: LoginViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }

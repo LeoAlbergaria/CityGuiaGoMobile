@@ -17,11 +17,12 @@ import com.pi.cityguiago.module.Register.RegisterViewModel
 import com.pi.cityguiago.designsystem.*
 import com.pi.cityguiago.designsystem.components.PrimaryButton
 import com.pi.cityguiago.designsystem.components.TextFieldWithTitle
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RegisterView(
     navController: NavHostController,
-    viewModel: RegisterViewModel = androidx.lifecycle.viewmodel.compose.viewModel { RegisterViewModel() }
+    viewModel: RegisterViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var fullName by remember { mutableStateOf("") }

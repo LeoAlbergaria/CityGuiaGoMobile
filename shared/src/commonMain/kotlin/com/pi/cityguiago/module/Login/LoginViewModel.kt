@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val loginService: LoginService = LoginService()
+    private val loginService: LoginService
 ) : ViewModel() {
     private val _state = MutableStateFlow<ComponentState>(ComponentState.Idle)
     val state = _state.asStateFlow()
@@ -27,13 +27,16 @@ class LoginViewModel(
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _state.value = ComponentState.Loading
-            val isSuccess = loginService.login(email, password)
-            if (isSuccess) {
-                _effects.trySend(LoginEffect.LoginSuccess)
-            } else {
-                _effects.trySend(LoginEffect.ShowErrorMessage("Invalid credentials"))
-                ComponentState.Error("Invalid credentials")
-            }
+
+            val result = loginService.login(email, password)
+
+            result.fold(
+                onSuccess = { _effects.trySend(LoginEffect.LoginSuccess) },
+                onFailure = {
+                    _effects.trySend(LoginEffect.ShowErrorMessage("Invalid credentials"))
+                    ComponentState.Error("Invalid credentials")
+                }
+            )
         }
     }
 }
@@ -44,6 +47,5 @@ sealed class LoginEffect {
 }
 
 sealed class LoginEvent {
-//    object LoadConversation : ConversationEvent()
     data class Login(val email: String, val password: String) : LoginEvent()
 }
